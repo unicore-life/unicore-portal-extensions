@@ -1,0 +1,11 @@
+subprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'http://unicore-dev.zam.kfa-juelich.de/maven' }
+        maven { url 'http://maven.vaadin.com/vaadin-addons' }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2'
+}

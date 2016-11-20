@@ -1,0 +1,15 @@
+AngioMerge plugin for the UNICORE portal
+
+
+Installation:
+ - Make sure that the portal version is compatible with this module. 
+   Supported portal version is in the pom.xml file (in the <properties> element).
+ - Copy the sole jar file to the portal lib directory.
+
+Configuration:
+ - portal.angiomerge.grantsAttribute - [default value is 'grants'], this property should be set to a name of 
+ user's attribute (as retrieved from Unity) with allowed grants. If user has no such attribute then UI provides
+ a plain text field to manually type the grant name. If the attribute is present then its values are put into
+ the grant selection combo box. Note: the attribute must be multi-valued (NOT a single value, with grants separated 
+ with space or comma). 
+ 
