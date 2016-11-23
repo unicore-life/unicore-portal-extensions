@@ -1,3 +1,7 @@
+project.ext.versions = [
+        uportal: '2.2.0'
+]
+
 subprojects {
     repositories {
         mavenCentral()

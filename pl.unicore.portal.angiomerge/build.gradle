@@ -6,10 +6,10 @@ group = 'pl.unicore.portal'
 version = '1.0.1-SNAPSHOT'
 
 dependencies {
-    compile 'eu.unicore.portal:eu.unicore.portal.grid.ui:2.1.0'
+    compile group: 'eu.unicore.portal', name: 'eu.unicore.portal.grid.ui', version: versions.uportal
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
