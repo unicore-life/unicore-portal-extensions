@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'distribution'
 }
 
 group = 'pl.unicore.portal'
@@ -13,3 +14,13 @@ sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+distributions {
+    main {
+        baseName = project.name
+        contents {
+            from jar
+            from 'src/main/doc/README'
+        }
+    }
+}
