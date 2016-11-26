@@ -3,6 +3,8 @@ project.ext.versions = [
 ]
 
 subprojects {
+    project.group = 'pl.unicore.portal'
+
     repositories {
         mavenCentral()
         maven { url 'http://unicore-dev.zam.kfa-juelich.de/maven' }
