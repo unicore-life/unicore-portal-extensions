@@ -26,6 +26,7 @@ distributions {
         contents {
             from jar
             from 'src/main/doc/README'
+            from '../LICENSE'
         }
     }
 }
