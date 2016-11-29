@@ -29,3 +29,13 @@ Sample command are presented below.
 ```
 ./gradlew :pl.unicore.portal.sinusmed:release
 ```
+
+After release, manually build distribution UNICORE portal extensions and attach it to created release 
+on [repository releases page](https://github.com/unicore-life/unicore-portal-extensions/releases).
+
+```
+./gradlew :pl.unicore.portal.sinusmed:distZip
+```
+
+Presented command builds distribution ZIP archive located in folder `./pl.unicore.portal.sinusmed/build/distributions/` 
+which should be uploaded.
