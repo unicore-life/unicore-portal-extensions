@@ -1,5 +1,5 @@
 project.ext.versions = [
-        uportal: '2.2.0'
+        uportal: '2.2.1'
 ]
 
 subprojects {
