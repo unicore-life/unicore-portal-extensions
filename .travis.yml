@@ -12,6 +12,8 @@ deploy:
     secure: w0x6+ryzCrkUlogEM8XdUNQ19dDoyOMFvQCdrulBT6pexkhPeNe7rX6TaZrHwMcheEBwff6bvRfihvnDKGKOjqp9QiJRMIVolHtz52BM52UC2eWmXOTTVqEKF4sxHFZLSKilXHencqNM6O18Q/Ynesd49tij/wXBSfW5MD/TPTnh03yA8di4/oK/mJybFBJ2E3Emiu7lp3UeTXSJbAwzUq71TYEsaGGaXwkf3SkyyxB9rH3+26oAiOuz9MY2Lv4E0wyQmxxlqaN4+wIeODaf3ss4GZ4FQHy1mu9etWU3jtshQqz5YBssyUzR3HZwzjcRa/5uHwmG+R744vtqHZCz7KweGdc5HBHvRmHB+gjX23VTtXP3s3Gt1YPNZMpyjgJTSL732cOswy3Bqadn2nnII6PRP+kijJodK1s9NGxK9HYtdwDMZ920mLjz7RzA1cqsTsZJ6cEBJUe1ZEqhCwOtFA1BO94pLoFmMVeZwbfAnd8bWZwLEStaTJnRC5Du/GPEtDKKBD0kLXix96kRP/9AxrxgKV97zYotF43fuAKfOmaZ5k0LBHp/EsUeKv0SCZD+7rc8AmqqGo2hPvnawHrBTVDtwEudtA9KJRsBiTNBPxZCJbbaBYIsjv348atFr0s/JrhnuTUzFhz3Sgg4joQWZ/QFPCbQzjAoF4e/SVnKg04=
   file_glob: true
   file: "${RELEASE_DISTRIBUTION_FILE}"
+  skip_cleanup: true
   on:
     repo: unicore-life/unicore-portal-extensions
     branch: update-to-uportal-2.3.0-libs
+    tags: true
