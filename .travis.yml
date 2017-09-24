@@ -16,4 +16,3 @@ deploy:
   on:
     repo: unicore-life/unicore-portal-extensions
     branch: update-to-uportal-2.3.0-libs
-    tags: true
