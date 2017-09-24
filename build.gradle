@@ -1,5 +1,5 @@
 project.ext.versions = [
-        uportal: '2.2.1'
+        uportal: '2.3.0'
 ]
 
 subprojects {
@@ -13,5 +13,5 @@ subprojects {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2.1'
+    gradleVersion = '4.1'
 }

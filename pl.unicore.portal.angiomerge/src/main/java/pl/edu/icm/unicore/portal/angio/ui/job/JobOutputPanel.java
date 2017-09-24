@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -89,8 +90,7 @@ public class JobOutputPanel extends CustomComponent
 	}
 	
 	public void setJob(DataEndpoint workspaceLocation, 
-			JobClient jobClient, AngioJobSpecification jobSpec) throws FileSystemException 
-	{
+			JobClient jobClient, AngioJobSpecification jobSpec) throws FileSystemException, UnsupportedEncodingException {
 		FileObject jobDirectory = StorageHelper.getWorkspaceJobDirectory(workspaceLocation, 
 				jobSpec.getInputId());
 		final FileObject outputDirectory = jobDirectory.resolveFile(AngioMergeJSDLCreator.OUTPUT_DIRECTORY);
