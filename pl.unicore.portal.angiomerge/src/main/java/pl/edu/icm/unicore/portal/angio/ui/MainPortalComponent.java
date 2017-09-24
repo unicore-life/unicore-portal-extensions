@@ -136,7 +136,7 @@ public class MainPortalComponent extends CustomComponent
 				UserGridDiscovery userGridDiscovery = Session.getCurrent().getUserGridDiscovery();
 				return new PortalHandler[] {
 						openJob,
-						new BrowseJobDirectoryAction(msgProvider, tpool.getExecutor()),
+						new BrowseJobDirectoryAction(msgProvider, tpool.getExecutor(), profilesMan),
 						new ShowJobDetailsAction(msgProvider),
 						new DeleteJobAction(msgProvider, tpool.getExecutor(), userGridDiscovery),
 						new AbortJobAction(msgProvider, tpool.getExecutor(), userGridDiscovery),

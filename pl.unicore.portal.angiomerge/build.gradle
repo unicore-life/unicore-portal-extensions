@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'distribution'
-    id 'pl.allegro.tech.build.axion-release' version '1.4.1'
+    id 'pl.allegro.tech.build.axion-release' version '1.7.1'
 }
 
 scmVersion {
