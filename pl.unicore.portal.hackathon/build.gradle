@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'distribution'
+    id 'pl.allegro.tech.build.axion-release' version '1.4.1'
+}
+
+scmVersion {
+    localOnly = true
+    tag { prefix = project.name }
+}
+
+project.version = scmVersion.version
+
+dependencies {
+    compile group: 'eu.unicore.portal', name: 'eu.unicore.portal.grid.ui', version: versions.uportal
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+distributions {
+    main {
+        baseName = project.name
+        contents {
+            from jar
+            from 'src/main/doc/README.md'
+            from 'src/main/doc/CHANGES'
+            from '../LICENSE'
+        }
+    }
+}
