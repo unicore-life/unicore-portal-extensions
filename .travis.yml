@@ -4,7 +4,7 @@ jdk:
 before_install:
   - chmod +x gradlew
 before_deploy:
-  - export RELEASE_DISTRIBUTION_FILE=$(find -name $(git describe --tags $(git rev-list --tags --max-count=1) | cut -d'-' -f1)/build/distributions/*.zip)
+  - export RELEASE_DISTRIBUTION_FILE=$(find . -name "$(git describe --tags $(git rev-list --tags --max-count=1))*.zip")
   - echo "deploying $RELEASE_DISTRIBUTION_FILE to GitHub releases"
 deploy:
   provider: releases
