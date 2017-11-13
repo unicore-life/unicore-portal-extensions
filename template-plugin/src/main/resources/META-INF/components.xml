@@ -6,7 +6,13 @@
 
     <context:annotation-config/>
 
-    <bean scope="prototype" class="pl.edu.icm.unicore.portal.template.ui.TemplatePluginMainView"/>
+    <bean scope="prototype"
+          class="pl.edu.icm.unicore.portal.template.ui.TemplatePluginMainView"/>
 
     <bean class="pl.edu.icm.unicore.portal.template.ui.TemplatePluginNavFactory"/>
+
+    <bean class="eu.unicore.portal.core.i18n.MessageSourceBundles">
+        <property name="bundle"
+                  value="pl/edu/icm/unicore/portal/template/i18n/TemplatePluginMessages"/>
+    </bean>
 </beans>

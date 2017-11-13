@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * Entry point of the AngioMerge app integrated with UNICORE portal.
+ * Entry point of the TemplatePlugin integrated with UNICORE portal.
  *
  * @author R.Kluszczynski
  */
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class TemplatePluginMainView extends AbstractView {
     private static final Logger log = Logger.getLogger(TemplatePluginMainView.class);
 
-    public static final String URI_FRAGMENT = "template";
+    public static final String PORTAL_URL_FRAGMENT = "template";
 
     private final PortalConfigurationSource configurationSource;
     private final UserProfilesManager profilesManager;
@@ -47,7 +47,7 @@ public class TemplatePluginMainView extends AbstractView {
 
     @Override
     protected com.vaadin.ui.Component initializeViewComponent() {
-        setTitle("Template Plugin Title");
+        setTitle(msgProvider.getMessage("TemplatePlugin.MainView.uiTitle"));
 
         final VerticalLayout main = new VerticalLayout();
         main.addComponent(
@@ -58,6 +58,6 @@ public class TemplatePluginMainView extends AbstractView {
 
     @Override
     public String getFragment() {
-        return URI_FRAGMENT;
+        return PORTAL_URL_FRAGMENT;
     }
 }

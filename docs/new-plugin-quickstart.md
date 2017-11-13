@@ -34,6 +34,11 @@ In order to add plugin to *UNICORE Portal*, one should extract archive and add a
 (there should be at least file named `pl.unicore.portal.awesome-plugin-0.1.0-SNAPSHOT.jar`) 
 to Portal *CLASSPATH* (for example by coping it into `lib/` subdirectory).
 
+Next, one have to enable new plugin by adding in configuration file `portal.properties` line:
+```properties
+portal.ui.menu.navigation.contents.10=TemplatePlugin.MenuEntry
+``` 
+
 Do not forget to restart *UNICORE Portal* and read logs if everything started correctly. 
 If everything went correctly, there should be a new menu entry called `template`. Use it!
 
