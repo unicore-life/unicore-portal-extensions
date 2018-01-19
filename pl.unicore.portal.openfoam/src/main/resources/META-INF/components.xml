@@ -6,13 +6,11 @@
 
     <context:annotation-config/>
 
-    <bean scope="prototype"
-          class="pl.edu.icm.unicore.portal.template.ui.TemplatePluginMainView"/>
+    <bean scope="prototype" class="pl.edu.icm.unicore.portal.openfoam.ui.OpenFOAMMainView"/>
 
-    <bean class="pl.edu.icm.unicore.portal.template.ui.TemplatePluginNavFactory"/>
+    <bean class="pl.edu.icm.unicore.portal.openfoam.ui.OpenFOAMNavFactory"></bean>
 
     <bean class="eu.unicore.portal.core.i18n.MessageSourceBundles">
-        <property name="bundle"
-                  value="pl/edu/icm/unicore/portal/template/i18n/TemplatePluginMessages"/>
+        <property name="bundle" value="pl/edu/icm/unicore/portal/openfoam/i18n/OpenFOAMMessages"/>
     </bean>
 </beans>

@@ -25,8 +25,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class OpeFOAMMainView extends AbstractView {
-    private static final Logger log = Logger.getLogger(OpeFOAMMainView.class);
+public class OpenFOAMMainView extends AbstractView {
+    private static final Logger log = Logger.getLogger(OpenFOAMMainView.class);
 
     public static final String PORTAL_URL_FRAGMENT = "template";
 
@@ -35,7 +35,7 @@ public class OpeFOAMMainView extends AbstractView {
     private final PortalThreadPool threadPool;
 
     @Autowired
-    public OpeFOAMMainView(PortalConfigurationSource configurationSource,
+    public OpenFOAMMainView(PortalConfigurationSource configurationSource,
                                   MessageProvider messageProvider,
                                   PortalThreadPool threadPool,
                                   UserProfilesManager profilesManager) {

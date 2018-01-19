@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class OpenFOAMNavFactory extends AbstractSwitchToMenuEntryFactory {
     public OpenFOAMNavFactory() {
-        super("TemplatePlugin.MenuEntry",
+        super("OpenFOAM.MenuEntry",
                 NavigationMenu.MENU_ID,
                 null,
                 null,
-                OpeFOAMMainView.class.getName());
+                OpenFOAMMainView.class.getName());
     }
 }
