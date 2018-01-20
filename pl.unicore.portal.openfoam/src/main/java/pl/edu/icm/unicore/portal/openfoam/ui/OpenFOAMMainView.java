@@ -12,6 +12,11 @@ import eu.unicore.portal.core.PortalThreadPool;
 import eu.unicore.portal.core.i18n.MessageProvider;
 import eu.unicore.portal.core.userprefs.UserProfilesManager;
 import eu.unicore.portal.ui.views.AbstractView;
+
+
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -28,7 +33,7 @@ import org.springframework.stereotype.Component;
 public class OpenFOAMMainView extends AbstractView {
     private static final Logger log = Logger.getLogger(OpenFOAMMainView.class);
 
-    public static final String PORTAL_URL_FRAGMENT = "template";
+    public static final String PORTAL_URL_FRAGMENT = "openfoam";
 
     private final PortalConfigurationSource configurationSource;
     private final UserProfilesManager profilesManager;
@@ -47,12 +52,12 @@ public class OpenFOAMMainView extends AbstractView {
 
     @Override
     protected com.vaadin.ui.Component initializeViewComponent() {
-        setTitle(msgProvider.getMessage("TemplatePlugin.MainView.uiTitle"));
+        setTitle(msgProvider.getMessage("OpenFOAM.MainView.uiTitle"));
 
         final VerticalLayout main = new VerticalLayout();
         main.addComponent(
-                new Label("Template Plugin!", ContentMode.PREFORMATTED)
-        );
+                new Label("Test wtyczki OpenFOAM...", ContentMode.PREFORMATTED)
+        ); 
         return main;
     }
 
