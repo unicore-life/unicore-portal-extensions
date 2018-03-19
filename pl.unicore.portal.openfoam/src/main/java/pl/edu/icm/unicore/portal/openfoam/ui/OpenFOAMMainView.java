@@ -52,6 +52,7 @@ public class OpenFOAMMainView extends AbstractView {
 
     @Override
     protected com.vaadin.ui.Component initializeViewComponent() {
+//        TODO gdzieś tutaj musi pojawić się zawołanie MainPortalComponent, żeby wszystko ruszyło...
         setTitle(msgProvider.getMessage("OpenFOAM.MainView.uiTitle"));
 
         final VerticalLayout main = new VerticalLayout();
