@@ -141,7 +141,7 @@ public class MainPortalComponent extends CustomComponent
 	
 		
 //		Button newSimulationButton = new Button(
-//				msg.getMessage("SinusMed.MainComponent.newSimulationButton"));
+//				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
 //		newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
 //		newSimulationButton.addClickListener(new Button.ClickListener()
 //		{

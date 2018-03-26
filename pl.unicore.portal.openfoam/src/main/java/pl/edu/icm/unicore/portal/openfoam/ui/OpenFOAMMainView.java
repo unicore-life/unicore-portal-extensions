@@ -63,7 +63,7 @@ public class OpenFOAMMainView extends AbstractView {
 		try
 		{
 			contents = new MainPortalComponent(configSource, msgProvider, threadPool, profilesManager);
-			contents.setVisible(false);
+			contents.setVisible(true);
 			main.addComponent(contents);
 
 //			errorContents = new GridNotReadyComponent(msgProvider);
@@ -77,7 +77,7 @@ public class OpenFOAMMainView extends AbstractView {
 			PrintWriter pw = new PrintWriter(buffer);
 			e.printStackTrace(pw);
 			pw.flush();
-			errorL.setValue("SinusMED app can not be initialized. Error:\n\n" + buffer.toString());
+			errorL.setValue("OpenFOAM app can not be initialized. Error:\n\n" + buffer.toString());
 			main.addComponent(errorL);
 		}
 		return main;
