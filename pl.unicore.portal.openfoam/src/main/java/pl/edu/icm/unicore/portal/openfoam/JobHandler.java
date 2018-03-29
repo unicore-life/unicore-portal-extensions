@@ -19,7 +19,7 @@ public class JobHandler
 		this.submissionService = submissionService;
 	}
 	
-	public String submitJob(User user, OpenFOAMJobSpecification jobSpec, OpenFOAMGridEnvironment gridEnvironment) 
+	public String submitJob(OpenFOAMJobSpecification jobSpec, OpenFOAMGridEnvironment gridEnvironment)
 			throws Exception
 	{
 		JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);

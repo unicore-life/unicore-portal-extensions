@@ -77,9 +77,9 @@ public class OpenFOAMJobPanel extends CustomComponent {
             jobMonitoringComponent.setCustomListener(new MyJobStatusListener(UI.getCurrent(),
                     Session.getCurrent().getUser().getCredentials()));
         } catch (Exception e) {
-            Notification.show(msg.getMessage("SinusMed.SinusJobPanel.invalidGridState"),
+            Notification.show(msg.getMessage("OpenFOAM.OpenFOAMPanel.invalidGridState"),
                     Type.ERROR_MESSAGE);
-            log.error("Can not open SinusMED job. See details of the exception.", e);
+            log.error("Can not open OpenFOAM job. See details of the exception.", e);
             return;
         }
 
@@ -98,7 +98,7 @@ public class OpenFOAMJobPanel extends CustomComponent {
         String inputId = WSUtilities.newUniqueID();
         inputPanel = new OpenFOAMInputPanel(inputId, config, msg, Session.getCurrent().getUser());
 
-        submitWA = new Button(msg.getMessage("SinusMed.SinusJobPanel.submit"));
+        submitWA = new Button(msg.getMessage("OpenFOAM.OpenFOAMJobPanel.submit"));
         submitWA.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_STARTWF));
         submitWA.addStyleName(Styles.MARGIN_TOP_BOTTOM_15);
         submitWA.addStyleName(Reindeer.BUTTON_LINK);
@@ -116,7 +116,7 @@ public class OpenFOAMJobPanel extends CustomComponent {
         jobStatusPanel.setSpacing(true);
         jobStatusPanel.setMargin(new MarginInfo(false, false, false, true));
 
-        Label statusLabel = new Label(msg.getMessage("SinusMed.SinusJobPanel.status"));
+        Label statusLabel = new Label(msg.getMessage("OpenFOAM.OpenFOAMJobPanel.status"));
         statusLabel.addStyleName(ValoTheme.LABEL_LARGE);
 
         jobMonitoringComponent = new JobMonitoringComponent(msg, tpool);
@@ -146,7 +146,7 @@ public class OpenFOAMJobPanel extends CustomComponent {
         try {
             jobDesc = inputPanel.getJobDescription();
         } catch (Exception e) {
-            Notification.show(msg.getMessage("SinusMed.SinusJobPanel.invalidInput"),
+            Notification.show(msg.getMessage("OpenFOAM.OpenFOAMJobPanel.invalidInput"),
                     Type.ERROR_MESSAGE);
             return;
         }
@@ -166,9 +166,9 @@ public class OpenFOAMJobPanel extends CustomComponent {
             @Override
             protected void updateUI() {
                 if (saved != null) {
-                    Notification.show(msg.getMessage("SinusMed.SinusJobPanel.invalidGridState"),
+                    Notification.show(msg.getMessage("OpenFOAM.OpenFOAMJobPanel.invalidGridState"),
                             Type.ERROR_MESSAGE);
-                    log.error("Can not submit SinusMED job, as job handler failed. "
+                    log.error("Can not submit OpenFOAM job, as job handler failed. "
                             + "See details of the exception.", saved);
                 } else {
                     switchToJobMonitoring(jobDesc);
