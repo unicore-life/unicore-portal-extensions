@@ -77,7 +77,7 @@ public class GridEnvironmentCollector
 	
 	private void addBroker(BrokerService broker)
 	{
-		log.debug("Broker found");
+		log.debug("Broker found at: " + broker.getAddress().getAddress().getStringValue());
 		if (brokers.add(broker))
 			updateStatus();
 	}
@@ -90,7 +90,7 @@ public class GridEnvironmentCollector
 	
 	private void addSfs(StorageFactoryService sfs)
 	{
-		log.debug("SFS found");
+		log.debug("SFS found at: " + sfs.getAddress().getAddress().getStringValue());
 		if (sfses.add(sfs))
 			updateStatus();
 	}

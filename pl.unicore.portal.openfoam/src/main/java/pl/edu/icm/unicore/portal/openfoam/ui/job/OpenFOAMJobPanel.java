@@ -5,9 +5,16 @@
 package pl.edu.icm.unicore.portal.openfoam.ui.job;
 
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Notification.Type;
 import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 import com.vaadin.ui.themes.ValoTheme;
 import de.fzj.unicore.uas.client.JobClient;
@@ -30,7 +37,11 @@ import org.apache.log4j.Logger;
 import org.chemomentum.workassignment.xmlbeans.GetWorkAssignmentStatusResponseDocument.GetWorkAssignmentStatusResponse;
 import org.unigrids.services.atomic.types.StatusType;
 import org.unigrids.services.atomic.types.StatusType.Enum;
-import pl.edu.icm.unicore.portal.openfoam.*;
+import pl.edu.icm.unicore.portal.openfoam.JobHandler;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMGridEnvironment;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMJSDLCreator;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMJobSpecification;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMProperties;
 
 /**
  * Main panel of a single job.
@@ -183,7 +194,7 @@ public class OpenFOAMJobPanel extends CustomComponent {
                 Session.getCurrent().getUser().getCredentials()));
         String waId = jobHandler.submitJob(jobDesc, gridEnvironment);
         JobMonitoring jobMonitoring = new JobMonitoring(discovery,
-                gridEnvironment.broker, waId, jobMonitoringComponent);
+                gridEnvironment.getBrokerService(), waId, jobMonitoringComponent);
         jobMonitoring.start();
     }
 

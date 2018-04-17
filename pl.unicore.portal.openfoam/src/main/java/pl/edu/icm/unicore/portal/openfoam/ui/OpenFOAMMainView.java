@@ -6,7 +6,6 @@ package pl.edu.icm.unicore.portal.openfoam.ui;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import eu.unicore.portal.core.PortalConfigurationSource;
 import eu.unicore.portal.core.PortalThreadPool;
@@ -14,17 +13,15 @@ import eu.unicore.portal.core.Session;
 import eu.unicore.portal.core.i18n.MessageProvider;
 import eu.unicore.portal.core.userprefs.UserProfilesManager;
 import eu.unicore.portal.ui.views.AbstractView;
-
-
-import java.io.CharArrayWriter;
-import java.io.PrintWriter;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.edu.icm.unicore.portal.openfoam.GridEnvironmentCollector;
+
+import java.io.CharArrayWriter;
+import java.io.PrintWriter;
 
 /**
  * Entry point of the TemplatePlugin integrated with UNICORE portal.
@@ -88,7 +85,10 @@ public class OpenFOAMMainView extends AbstractView {
         setTitle(msgProvider.getMessage("OpenFOAM.MainView.uiTitle"));
 
         com.vaadin.ui.Component main = initUI();
-        collector = new GridEnvironmentCollector(Session.getCurrent().getUserGridDiscovery(), null);//, new EnvironmentListener(UI.getCurrent()));
+        collector = new GridEnvironmentCollector(
+                Session.getCurrent().getUserGridDiscovery(),
+                (broker, sfs) -> contents.setGridEnvironment(broker, sfs)
+        );//, new EnvironmentListener(UI.getCurrent()));
 		collector.start();
 		return main;
     }

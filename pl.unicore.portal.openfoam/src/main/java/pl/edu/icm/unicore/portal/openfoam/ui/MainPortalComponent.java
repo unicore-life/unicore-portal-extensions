@@ -6,20 +6,29 @@ package pl.edu.icm.unicore.portal.openfoam.ui;
 
 import com.google.common.collect.Sets;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.*;
-import com.vaadin.ui.Notification.Type;
-import com.vaadin.ui.TabSheet.Tab;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.Reindeer;
 import eu.unicore.griddisco.core.api.UserGridDiscovery;
 import eu.unicore.griddisco.core.api.filter.Filter;
 import eu.unicore.griddisco.core.api.filter.JobApplicationFilter;
 import eu.unicore.griddisco.core.model.AtomicJob;
+import eu.unicore.griddisco.core.model.BrokerService;
+import eu.unicore.griddisco.core.model.StorageFactoryService;
 import eu.unicore.portal.core.PortalConfigurationSource;
 import eu.unicore.portal.core.PortalThreadPool;
 import eu.unicore.portal.core.Session;
 import eu.unicore.portal.core.i18n.MessageProvider;
 import eu.unicore.portal.core.userprefs.UserProfilesManager;
-import eu.unicore.portal.grid.ui.actions.*;
+import eu.unicore.portal.grid.ui.actions.AbortJobAction;
+import eu.unicore.portal.grid.ui.actions.BrowseJobDirectoryAction;
+import eu.unicore.portal.grid.ui.actions.DeleteJobAction;
+import eu.unicore.portal.grid.ui.actions.RestartJobAction;
+import eu.unicore.portal.grid.ui.actions.ShowJobDetailsAction;
 import eu.unicore.portal.grid.ui.helpers.BrokeredJobSubmissionHelper;
 import eu.unicore.portal.grid.ui.views.JobsTable;
 import eu.unicore.portal.ui.IconUtil;
@@ -28,7 +37,11 @@ import eu.unicore.portal.ui.icons.IconRepository;
 import eu.unicore.portal.ui.menu.PortalHandler;
 import eu.unicore.portal.ui.menu.SingleContextAction;
 import org.apache.log4j.Logger;
-import pl.edu.icm.unicore.portal.openfoam.*;
+import pl.edu.icm.unicore.portal.openfoam.JobHandler;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMGridEnvironment;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMJSDLCreator;
+import pl.edu.icm.unicore.portal.openfoam.OpenFOAMProperties;
+import pl.edu.icm.unicore.portal.openfoam.ui.test.DateJobSubmitter;
 
 import java.util.Collection;
 
@@ -36,7 +49,7 @@ import java.util.Collection;
  * Top level component of SinusMed interface. The top part contains a jobs
  * table. The lower part contains tabs where completed/running jobs can be seen
  * and where new jobs can be prepared and submitted.
- * 
+ *
  * @author K. Benedyczak
  */
 public class MainPortalComponent extends CustomComponent
@@ -53,7 +66,8 @@ public class MainPortalComponent extends CustomComponent
 	private PortalThreadPool tpool;
 
 	private UserProfilesManager profilesMan;
-	private OpenFOAMGridEnvironment gridEnvironment;
+
+	private final OpenFOAMGridEnvironment gridEnvironment = new OpenFOAMGridEnvironment();
 
 	public MainPortalComponent(PortalConfigurationSource configSource, MessageProvider msg,
                                PortalThreadPool tpool, UserProfilesManager profilesMan)
@@ -66,21 +80,30 @@ public class MainPortalComponent extends CustomComponent
 		initUI();
 	}
 
-	public void setGridEnvironment(OpenFOAMGridEnvironment gridEnvironment)
-	{
-		this.gridEnvironment = gridEnvironment;
+//	public void setGridEnvironment(OpenFOAMGridEnvironment gridEnvironment)
+//	{
+//		this.gridEnvironment = gridEnvironment;
+//	}
+
+    public void setGridEnvironment(BrokerService broker, StorageFactoryService sfs) {
+        gridEnvironment.setBrokerService(broker);
+        gridEnvironment.setStorageFactoryService(sfs);
 	}
-	
-	private void initUI()
+
+    private void initUI()
 	{
 		VerticalLayout main = new VerticalLayout();
 		main.setSizeFull();
 		main.setMargin(true);
 		setCompositionRoot(main);
 
+        Button submitDateJobButton = new Button("Submit Date Job");
+        submitDateJobButton.addClickListener(new DateJobSubmitter(jobHandler, gridEnvironment));
+        main.addComponent(submitDateJobButton);
+
 		HorizontalLayout mainToolbar = new HorizontalLayout();
 		main.addComponents(mainToolbar);
-		
+
 		simulations = new TabSheet();
 		simulations.addStyleName(Reindeer.TABSHEET_MINIMAL);
 		simulations.setSizeFull();
@@ -102,20 +125,20 @@ public class MainPortalComponent extends CustomComponent
 //				openExistingJob(job);
 			}
 		};
-		
+
 		JobsTable table = new JobsTable(msg, tpool, profilesMan)
 		{
 			protected Filter getJobsFilter() {
 				return filter;
 			}
-			
+
 			@Override
 			protected void createUI()
 			{
 				super.createUI();
 				table.setPageLength(5);
 			}
-			
+
 			protected PortalHandler[] getInitHandlers() {
 				UserGridDiscovery userGridDiscovery = Session.getCurrent().getUserGridDiscovery();
 				return new PortalHandler[] {
@@ -127,19 +150,17 @@ public class MainPortalComponent extends CustomComponent
 						new RestartJobAction(msgProvider, tpool.getExecutor(), userGridDiscovery)
 					};
 			}
-			
+
 			protected Collection<String> getColumnsCollapsedByDefault()
 			{
-				return Sets.newHashSet(ShowJobDetailsAction.DETAIL_ESTIMATED_FINISH, 
+				return Sets.newHashSet(ShowJobDetailsAction.DETAIL_ESTIMATED_FINISH,
 						ShowJobDetailsAction.DETAIL_EXIT_CODE,
 						ShowJobDetailsAction.DETAIL_APPLICATION,
 						ShowJobDetailsAction.DETAIL_TAGS);
 			}
 		};
-		
 
-	
-		
+
 //		Button newSimulationButton = new Button(
 //				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
 //		newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
@@ -157,7 +178,7 @@ public class MainPortalComponent extends CustomComponent
 
 		final VerticalLayout vl = new VerticalLayout();
 		vl.addComponents(table);
-		
+
 		final Button hideJobsTable = new Button(
 				msg.getMessage("SinusMed.MainComponent.hideJobsTableButton"));
 		hideJobsTable.setData(true);
@@ -177,7 +198,7 @@ public class MainPortalComponent extends CustomComponent
 
 		main.addComponents(vl, wrapperBottom);
 	}
-	
+
 	private void updateShowHideButton(Button hideJobsTable, Component toHide)
 	{
 		if (hideJobsTable.getData().equals(true))
@@ -192,7 +213,7 @@ public class MainPortalComponent extends CustomComponent
 			toHide.setVisible(true);
 		}
 	}
-	
+
 //	private void openExistingJob(AtomicJob job)
 //	{
 //		SinusMedJobSpecification jobSpec;
