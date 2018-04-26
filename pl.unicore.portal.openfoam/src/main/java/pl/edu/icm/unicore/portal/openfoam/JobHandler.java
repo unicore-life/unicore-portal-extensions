@@ -28,7 +28,7 @@ public class JobHandler {
         FileTransfersSpec gridImports = null;
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
-        String folder = "AngioMerge-" + sdf.format(new Date()) + "-" + (new Random().nextInt());
+        String folder = "OpenFOAM-" + sdf.format(new Date()) + "-" + (new Random().nextInt());
         return submissionService.submitBrokeredJob(localImports, gridImports,
                 exports, gridEnvironment.getStorageFactoryService(), folder,
                 job, gridEnvironment.getBrokerService());

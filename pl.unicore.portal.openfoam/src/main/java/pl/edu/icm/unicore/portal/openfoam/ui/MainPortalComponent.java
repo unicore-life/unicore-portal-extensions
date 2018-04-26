@@ -6,12 +6,9 @@ package pl.edu.icm.unicore.portal.openfoam.ui;
 
 import com.google.common.collect.Sets;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+import com.vaadin.ui.Notification.Type;
+import com.vaadin.ui.TabSheet.Tab;
 import com.vaadin.ui.themes.Reindeer;
 import eu.unicore.griddisco.core.api.UserGridDiscovery;
 import eu.unicore.griddisco.core.api.filter.Filter;
@@ -37,10 +34,8 @@ import eu.unicore.portal.ui.icons.IconRepository;
 import eu.unicore.portal.ui.menu.PortalHandler;
 import eu.unicore.portal.ui.menu.SingleContextAction;
 import org.apache.log4j.Logger;
-import pl.edu.icm.unicore.portal.openfoam.JobHandler;
-import pl.edu.icm.unicore.portal.openfoam.OpenFOAMGridEnvironment;
-import pl.edu.icm.unicore.portal.openfoam.OpenFOAMJSDLCreator;
-import pl.edu.icm.unicore.portal.openfoam.OpenFOAMProperties;
+import pl.edu.icm.unicore.portal.openfoam.*;
+import pl.edu.icm.unicore.portal.openfoam.ui.job.OpenFOAMJobPanel;
 import pl.edu.icm.unicore.portal.openfoam.ui.test.DateJobSubmitter;
 
 import java.util.Collection;
@@ -67,7 +62,7 @@ public class MainPortalComponent extends CustomComponent
 
 	private UserProfilesManager profilesMan;
 
-	private final OpenFOAMGridEnvironment gridEnvironment = new OpenFOAMGridEnvironment();
+	private OpenFOAMGridEnvironment gridEnvironment = new OpenFOAMGridEnvironment();
 
 	public MainPortalComponent(PortalConfigurationSource configSource, MessageProvider msg,
                                PortalThreadPool tpool, UserProfilesManager profilesMan)
@@ -80,10 +75,10 @@ public class MainPortalComponent extends CustomComponent
 		initUI();
 	}
 
-//	public void setGridEnvironment(OpenFOAMGridEnvironment gridEnvironment)
-//	{
-//		this.gridEnvironment = gridEnvironment;
-//	}
+	public void setGridEnvironment(OpenFOAMGridEnvironment gridEnvironment)
+	{
+		this.gridEnvironment = gridEnvironment;
+	}
 
     public void setGridEnvironment(BrokerService broker, StorageFactoryService sfs) {
         gridEnvironment.setBrokerService(broker);
@@ -161,26 +156,26 @@ public class MainPortalComponent extends CustomComponent
 		};
 
 
+		Button newSimulationButton = new Button("Mutton button");
 //		Button newSimulationButton = new Button(
 //				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
-//		newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
-//		newSimulationButton.addClickListener(new Button.ClickListener()
-//		{
-//			@Override
-//			public void buttonClick(Button.ClickEvent event)
-//			{
-//				SinusJobPanel jobPanel = new SinusJobPanel(config, jobHandler, msg, tpool,
-//						Session.getCurrent().getUserGridDiscovery(), gridEnvironment);
-//				addTab(jobPanel);
-//			}
-//		});
-
+		newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
+		newSimulationButton.addClickListener(new Button.ClickListener()
+		{
+			@Override
+			public void buttonClick(Button.ClickEvent event)
+			{
+				OpenFOAMJobPanel jobPanel = new OpenFOAMJobPanel(config, jobHandler, msg, tpool,
+						Session.getCurrent().getUserGridDiscovery(), gridEnvironment);
+				addTab(jobPanel);
+			}
+		});
 
 		final VerticalLayout vl = new VerticalLayout();
 		vl.addComponents(table);
 
 		final Button hideJobsTable = new Button(
-				msg.getMessage("SinusMed.MainComponent.hideJobsTableButton"));
+				msg.getMessage("OpenFOAM.MainComponent.hideJobsTableButton"));
 		hideJobsTable.setData(true);
 		hideJobsTable.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_UPLOAD_FILE));
 		hideJobsTable.addClickListener(new Button.ClickListener()
@@ -192,7 +187,7 @@ public class MainPortalComponent extends CustomComponent
 			}
 		});
 
-//		mainToolbar.addComponents(newSimulationButton, hideJobsTable);
+		mainToolbar.addComponents(newSimulationButton, hideJobsTable);
 		mainToolbar.addStyleName(Styles.MARGIN_TOP_BOTTOM_15);
 		mainToolbar.setSpacing(true);
 
@@ -203,40 +198,40 @@ public class MainPortalComponent extends CustomComponent
 	{
 		if (hideJobsTable.getData().equals(true))
 		{
-			hideJobsTable.setCaption(msg.getMessage("SinusMed.MainComponent.showJobsTableButton"));
+			hideJobsTable.setCaption(msg.getMessage("OpenFOAM.MainComponent.showJobsTableButton"));
 			hideJobsTable.setData(false);
 			toHide.setVisible(false);
 		} else
 		{
-			hideJobsTable.setCaption(msg.getMessage("SinusMed.MainComponent.hideJobsTableButton"));
+			hideJobsTable.setCaption(msg.getMessage("OpenFOAM.MainComponent.hideJobsTableButton"));
 			hideJobsTable.setData(true);
 			toHide.setVisible(true);
 		}
 	}
 
-//	private void openExistingJob(AtomicJob job)
-//	{
-//		SinusMedJobSpecification jobSpec;
-//		try
-//		{
-//			jobSpec = SinusMedJSDLCreator.createSinusmedJobSpecification(job.getProperties());
-//		} catch (Exception e)
-//		{
-//			log.error("Error parsing job's properties", e);
-//			Notification.show(msg.getMessage("SinusMed.MainComponent.errorParseJob", e.toString()),
-//					Type.ERROR_MESSAGE);
-//			return;
-//		}
-//		SinusJobPanel jobPanel = new SinusJobPanel(config, jobSpec, job, jobHandler, msg,
-//				tpool, Session.getCurrent().getUserGridDiscovery(), gridEnvironment);
-//		addTab(jobPanel);
-//	}
+	private void openExistingJob(AtomicJob job)
+	{
+		OpenFOAMJobSpecification jobSpec;
+		try
+		{
+			jobSpec = OpenFOAMJSDLCreator.createJobSpecification(job.getProperties());
+		} catch (Exception e)
+		{
+			log.error("Error parsing job's properties", e);
+			Notification.show(msg.getMessage("OpenFOAM.MainComponent.errorParseJob", e.toString()),
+					Type.ERROR_MESSAGE);
+			return;
+		}
+		OpenFOAMJobPanel jobPanel = new OpenFOAMJobPanel(config, jobSpec, job, jobHandler, msg,
+				tpool, Session.getCurrent().getUserGridDiscovery(), gridEnvironment);
+		addTab(jobPanel);
+	}
 //
-//	private void addTab(SinusJobPanel jobPanel)
-//	{
-//		Tab tab = simulations.addTab(jobPanel);
-//		tab.setClosable(true);
-//		jobPanel.setParent(tab);
-//		simulations.setSelectedTab(tab);
-//	}
+	private void addTab(OpenFOAMJobPanel jobPanel)
+	{
+		Tab tab = simulations.addTab(jobPanel);
+		tab.setClosable(true);
+		jobPanel.setParent(tab);
+		simulations.setSelectedTab(tab);
+	}
 }

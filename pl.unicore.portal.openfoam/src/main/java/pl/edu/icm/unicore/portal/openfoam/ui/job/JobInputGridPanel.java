@@ -42,9 +42,9 @@ public class JobInputGridPanel extends CustomComponent
 		VerticalLayout vl = new VerticalLayout();
 		vl.setSpacing(true);
 		
-		inputInfo = new Label(msg.getMessage("SinusMed.GridInputPanel.noFile"));
+		inputInfo = new Label(msg.getMessage("OpenFOAM.GridInputPanel.noFile"));
 		
-		Button gridFileChooserButton = new Button(msg.getMessage("SinusMed.GridInputPanel.selectFile"));
+		Button gridFileChooserButton = new Button(msg.getMessage("OpenFOAM.GridInputPanel.selectFile"));
 		gridFileChooserButton.addClickListener(new ClickListener()
 		{
 			@Override
@@ -61,8 +61,8 @@ public class JobInputGridPanel extends CustomComponent
 	private void showChooser()
 	{
 		StorageFileChooser chooser = new StorageFileChooser(msg, 
-				msg.getMessage("SinusMed.GridInputPanel.selectFileStorage"),
-				msg.getMessage("SinusMed.GridInputPanel.selectFile"), 
+				msg.getMessage("OpenFOAM.GridInputPanel.selectFileStorage"),
+				msg.getMessage("OpenFOAM.GridInputPanel.selectFile"),
 				false, 
 				new VFSFileChooser.GenericSelectionFilter(FileType.FILE), 
 				new SelectionCallback()
@@ -87,7 +87,7 @@ public class JobInputGridPanel extends CustomComponent
 		{
 			throw new IllegalStateException("Can't parse remote file URL", e);
 		}
-		inputInfo.setValue(msg.getMessage("SinusMed.GridInputPanel.selectedFile",
+		inputInfo.setValue(msg.getMessage("OpenFOAM.GridInputPanel.selectedFile",
 				gridInputFile));
 	}
 	
