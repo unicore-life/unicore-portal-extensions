@@ -156,7 +156,7 @@ public class MainPortalComponent extends CustomComponent
 		};
 
 
-		Button newSimulationButton = new Button("Mutton button");
+		Button newSimulationButton = new Button("Upload file");
 //		Button newSimulationButton = new Button(
 //				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
 		newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
