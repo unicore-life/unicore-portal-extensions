@@ -74,30 +74,30 @@ public class StorageUtil
 		return new File(inputDir, file);
 	}
 	
-	public static String getInputNameFromArchive(File inputArchive) throws ZipException, IOException
-	{
-		ZipFile zip = new ZipFile(inputArchive);
-		try
-		{
-			Enumeration<? extends ZipEntry> entries = zip.entries();
-			for (ZipEntry e = entries.nextElement(); entries.hasMoreElements(); e = entries.nextElement())
-			{
-				if (!e.isDirectory() && e.getName().endsWith(".rdata"))
-					return e.getName();
-			}
-			throw new IOException("Input file with '.rdata' suffix not found in the input archive");
-		} finally 
-		{
-			zip.close();
-		}
-	}
+//	public static String getInputNameFromArchive(File inputArchive) throws ZipException, IOException
+//	{
+//		ZipFile zip = new ZipFile(inputArchive);
+//		try
+//		{
+//			Enumeration<? extends ZipEntry> entries = zip.entries();
+//			for (ZipEntry e = entries.nextElement(); entries.hasMoreElements(); e = entries.nextElement())
+//			{
+//				if (!e.isDirectory() && e.getName().endsWith(".rdata"))
+//					return e.getName();
+//			}
+//			throw new IOException("Input file with '.rdata' suffix not found in the input archive");
+//		} finally
+//		{
+//			zip.close();
+//		}
+//	}
 	
-	public File getOutputLocation(String jobId)
-	{
-		File outputDir = new File(getUserWorkspace(), jobId);
-		outputDir.mkdirs();
-		return new File(outputDir, OUTPUT);
-	}
+//	public File getOutputLocation(String jobId)
+//	{
+//		File outputDir = new File(getUserWorkspace(), jobId);
+//		outputDir.mkdirs();
+//		return new File(outputDir, OUTPUT);
+//	}
 	
 	public File getUnpackedOutputLocation(String jobId)
 	{
