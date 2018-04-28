@@ -53,9 +53,9 @@ public class OpenFOAMInputPanel extends CustomComponent {
         setCompositionRoot(main);
         main.setSpacing(true);
 
-        jobName = new TextField(msg.getMessage("SinusMed.SinusInput.jobName"));
+        jobName = new TextField(msg.getMessage("OpenFOAM.OpenFOAMInput.jobName"));
         jobName.setRequired(true);
-        jobName.setValue(msg.getMessage("SinusMed.SinusInput.defaultJobName"));
+        jobName.setValue(msg.getMessage("OpenFOAM.OpenFOAMInput.defaultJobName"));
         jobName.addValueChangeListener(new ValueChangeListener() {
             @Override
             public void valueChange(ValueChangeEvent event) {
@@ -65,7 +65,7 @@ public class OpenFOAMInputPanel extends CustomComponent {
         });
         jobName.setImmediate(true);
         String grantsAttribute = config.getValue(OpenFOAMProperties.GRANTS_ATTRIBUTE);
-        project = new ProjectChooserComponent(grantsAttribute, msg.getMessage("SinusMed.SinusInput.grant"));
+        project = new ProjectChooserComponent(grantsAttribute, msg.getMessage("OpenFOAM.OpenFOAMInput.grant"));
 
         uploadedInput = new JobInputUploadPanel(inputId, config, msg, user);
         gridInput = new JobInputGridPanel(msg);
@@ -73,9 +73,9 @@ public class OpenFOAMInputPanel extends CustomComponent {
 
         inputSourceChooser = new OptionGroup();
         inputSourceChooser.addItem(LOCAL_L);
-        inputSourceChooser.setItemCaption(LOCAL_L, msg.getMessage("SinusMed.SinusInput.localInput"));
+        inputSourceChooser.setItemCaption(LOCAL_L, msg.getMessage("OpenFOAM.OpenFOAMInput.localInput"));
         inputSourceChooser.addItem(GRID_L);
-        inputSourceChooser.setItemCaption(GRID_L, msg.getMessage("SinusMed.SinusInput.gridInput"));
+        inputSourceChooser.setItemCaption(GRID_L, msg.getMessage("OpenFOAM.OpenFOAMInput.gridInput"));
         inputSourceChooser.setImmediate(true);
         inputSourceChooser.select(LOCAL_L);
         inputSourceChooser.addValueChangeListener(new ValueChangeListener() {
@@ -91,7 +91,7 @@ public class OpenFOAMInputPanel extends CustomComponent {
         inputsLay.setSpacing(true);
         inputsLay.addComponents(uploadedInput, gridInput);
 
-        execProfileChooser = new ComboBox(msg.getMessage("SinusMed.SinusInput.profile"));
+        execProfileChooser = new ComboBox(msg.getMessage("OpenFOAM.OpenFOAMInput.profile"));
         for (JobProfile p : JobProfile.values())
             execProfileChooser.addItem(p.name());
         execProfileChooser.select(JobProfile.normal.name());
