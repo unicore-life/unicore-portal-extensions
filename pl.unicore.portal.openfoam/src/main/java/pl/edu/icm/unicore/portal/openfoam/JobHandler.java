@@ -14,25 +14,36 @@ public class JobHandler {
     private static final Logger log = Logger.getLogger(JobHandler.class);
 
     private final BrokeredJobSubmissionHelper submissionService;
+    private StorageUtil storageUtil;
 
-    public JobHandler(BrokeredJobSubmissionHelper submissionService) {
+    public JobHandler(BrokeredJobSubmissionHelper submissionService, StorageUtil storageUtil) {
         this.submissionService = submissionService;
+        this.storageUtil = storageUtil;
     }
 
     public String submitJob(OpenFOAMJobSpecification jobSpec, OpenFOAMGridEnvironment gridEnvironment)
             throws Exception {
-        JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);
+//        JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);
+        JobDefinitionDocument job = DateJobSpecification.createJobDocument("test-date-job");
 
-        FileTransfersSpec localImports = null;
         FileTransfersSpec exports = null;
         FileTransfersSpec gridImports = null;
 
+
+        FileTransfersSpec localImports = new FileTransfersSpec(storageUtil.getOriginalInputLocation(
+                jobSpec.getInputId()).getAbsolutePath(),
+                OpenFOAMJSDLCreator.INPUT);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
         String folder = "OpenFOAM-" + sdf.format(new Date()) + "-" + (new Random().nextInt());
-        return submissionService.submitBrokeredJob(localImports, gridImports,
+        String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports,
                 exports, gridEnvironment.getStorageFactoryService(), folder,
                 job, gridEnvironment.getBrokerService());
+
+        log.info("Submitted work assignment: " + jobAssignmentID);
+        return jobAssignmentID;
     }
+
 
     public void submitDateJob(OpenFOAMGridEnvironment gridEnvironment) {
         JobDefinitionDocument jobDocument = DateJobSpecification.createJobDocument("testing-job");
