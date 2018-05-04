@@ -36,10 +36,12 @@ public class JobHandler {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
         String folder = "OpenFOAM-" + sdf.format(new Date()) + "-" + (new Random().nextInt());
-        String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports,
-                exports, gridEnvironment.getStorageFactoryService(), folder,
+//        String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports,
+//                exports, gridEnvironment.getStorageFactoryService(), folder,
+//                job, gridEnvironment.getBrokerService());
+        String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports, exports,
+                gridEnvironment.getStorageFactoryService(), null,
                 job, gridEnvironment.getBrokerService());
-
         log.info("Submitted work assignment: " + jobAssignmentID);
         return jobAssignmentID;
     }
