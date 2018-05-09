@@ -50,9 +50,10 @@ public class JobHandler {
     public void submitDateJob(OpenFOAMGridEnvironment gridEnvironment) {
         JobDefinitionDocument jobDocument = DateJobSpecification.createJobDocument("testing-job");
 
+        FileTransfersSpec fileTransfersSpec = new FileTransfersSpec("/tmp/local-file.md", "test.txt");
         try {
             String workAssignmentID = submissionService.submitBrokeredJob(
-                    null,
+                    fileTransfersSpec,
                     null,
                     null,
                     gridEnvironment.getStorageFactoryService(),
