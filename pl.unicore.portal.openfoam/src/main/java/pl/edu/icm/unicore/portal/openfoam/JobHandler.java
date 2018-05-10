@@ -39,9 +39,6 @@ public class JobHandler {
         String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports,
                 exports, gridEnvironment.getStorageFactoryService(), folder,
                 job, gridEnvironment.getBrokerService());
-//        String jobAssignmentID = submissionService.submitBrokeredJob(localImports, gridImports, exports,
-//                gridEnvironment.getStorageFactoryService(), null,
-//                job, gridEnvironment.getBrokerService());
         log.info("Submitted work assignment: " + jobAssignmentID);
         return jobAssignmentID;
     }

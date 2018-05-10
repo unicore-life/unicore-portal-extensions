@@ -30,8 +30,8 @@ public class OpenFOAMJSDLCreator
 //	public static final String APPLICATON_NAME = "OpenFOAM";
 //	private static final String APPLICATION_VERSION = "2.2.2";
 	
-	public static final String INPUT = "input.txt";
-	public static final String OUTPUT = "output.txt";
+	public static final String INPUT = "job_input.zip";
+	public static final String OUTPUT = "job_output.zip";
 	
 	public static OpenFOAMJobSpecification createJobSpecification(JobProperties jobProperties) 
 	{
