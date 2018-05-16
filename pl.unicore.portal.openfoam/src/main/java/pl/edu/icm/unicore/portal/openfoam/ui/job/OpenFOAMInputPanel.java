@@ -91,14 +91,15 @@ public class OpenFOAMInputPanel extends CustomComponent {
         inputsLay.setSpacing(true);
         inputsLay.addComponents(uploadedInput, gridInput);
 
-        execProfileChooser = new ComboBox(msg.getMessage("OpenFOAM.OpenFOAMInput.profile"));
-        for (JobProfile p : JobProfile.values())
-            execProfileChooser.addItem(p.name());
-        execProfileChooser.select(JobProfile.normal.name());
-        execProfileChooser.setNullSelectionAllowed(false);
+//        execProfileChooser = new ComboBox(msg.getMessage("OpenFOAM.OpenFOAMInput.profile"));
+//        for (JobProfile p : JobProfile.values())
+//            execProfileChooser.addItem(p.name());
+//        execProfileChooser.select(JobProfile.normal.name());
+//        execProfileChooser.setNullSelectionAllowed(false);
 
-        FormLayout params = new FormLayout(jobName, project, inputSourceChooser, inputsLay,
-                execProfileChooser);
+//        FormLayout params = new FormLayout(jobName, project, inputSourceChooser, inputsLay,
+//                execProfileChooser);
+        FormLayout params = new FormLayout(jobName, project, inputSourceChooser, inputsLay);
 
         main.addComponents(params);
     }

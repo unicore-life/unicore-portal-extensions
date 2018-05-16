@@ -84,9 +84,9 @@ public class MainPortalComponent extends CustomComponent {
         main.setMargin(true);
         setCompositionRoot(main);
 
-        Button submitDateJobButton = new Button("Submit Date Job");
-        submitDateJobButton.addClickListener(new DateJobSubmitter(jobHandler, gridEnvironment));
-        main.addComponent(submitDateJobButton);
+//        Button submitDateJobButton = new Button("Submit Date Job");
+//        submitDateJobButton.addClickListener(new DateJobSubmitter(jobHandler, gridEnvironment));
+//        main.addComponent(submitDateJobButton);
 
         HorizontalLayout mainToolbar = new HorizontalLayout();
         main.addComponents(mainToolbar);
@@ -143,9 +143,8 @@ public class MainPortalComponent extends CustomComponent {
         };
 
 
-        Button newSimulationButton = new Button("Upload file");
-//		Button newSimulationButton = new Button(
-//				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
+		Button newSimulationButton = new Button(
+				msg.getMessage("OpenFOAM.MainComponent.newSimulationButton"));
         newSimulationButton.setIcon(IconUtil.getIconFromTheme(IconRepository.ICON_ID_NEW_FILE));
         newSimulationButton.addClickListener(new Button.ClickListener() {
             @Override
