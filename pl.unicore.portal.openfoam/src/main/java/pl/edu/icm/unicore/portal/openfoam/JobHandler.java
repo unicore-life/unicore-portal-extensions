@@ -23,8 +23,8 @@ public class JobHandler {
 
     public String submitJob(OpenFOAMJobSpecification jobSpec, OpenFOAMGridEnvironment gridEnvironment)
             throws Exception {
-//        JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);
-        JobDefinitionDocument job = DateJobSpecification.createJobDocument("test-date-job");
+        JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);
+//        JobDefinitionDocument job = DateJobSpecification.createJobDocument("test-date-job");
 
         FileTransfersSpec exports = null;
         FileTransfersSpec gridImports = null;

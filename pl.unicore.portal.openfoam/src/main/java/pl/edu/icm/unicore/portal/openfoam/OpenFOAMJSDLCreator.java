@@ -19,24 +19,24 @@ import org.unigrids.x2006.x04.services.jms.JobPropertiesDocument.JobProperties;
 import de.fzj.unicore.wsrflite.xmlbeans.WSUtilities;
 import eu.unicore.portal.grid.ui.helpers.BrokeredJobSubmissionHelper;
 
-public class OpenFOAMJSDLCreator 
+public class OpenFOAMJSDLCreator
 {
 	private static final Logger log = Logger.getLogger(OpenFOAMJSDLCreator.class);
-	
+
 	// testowo
-	public static final String APPLICATON_NAME = "date";
+	public static final String APPLICATON_NAME = "Date";
 	private static final String APPLICATION_VERSION = "8.4";
 	// docelowo
 //	public static final String APPLICATON_NAME = "OpenFOAM";
 //	private static final String APPLICATION_VERSION = "2.2.2";
-	
+
 	public static final String INPUT = "job_input.zip";
 	public static final String OUTPUT = "job_output.zip";
-	
-	public static OpenFOAMJobSpecification createJobSpecification(JobProperties jobProperties) 
+
+	public static OpenFOAMJobSpecification createJobSpecification(JobProperties jobProperties)
 	{
 		OpenFOAMJobSpecification ret = new OpenFOAMJobSpecification();
-		
+
 		JobDescriptionType jobDesc = jobProperties.getOriginalJSDL().getJobDescription();
 		ret.setName(jobDesc.getJobIdentification().getJobName());
 		String[] projects = jobDesc.getJobIdentification().getJobProjectArray();
@@ -59,45 +59,50 @@ public class OpenFOAMJSDLCreator
 				ret.setGridOutputLocation(ds.getTarget().getURI());
 			}
 		}
-		
+
 		List<SubmissionTimeDocument> tt = WSUtilities.extractAnyElements(
 				jobProperties, SubmissionTimeDocument.class);
 		if (tt != null && tt.size() > 0)
 			ret.setExecutionStart(tt.get(0).getSubmissionTime().getTime());
-		
+
 		List<TargetSystemReferenceDocument> tt2 = WSUtilities.extractAnyElements(
 				jobProperties, TargetSystemReferenceDocument.class);
 		if (tt2 != null && tt2.size() > 0)
 			ret.setExecutionSite(tt2.get(0).getTargetSystemReference().getAddress().getStringValue());
-		
+
 		return ret;
 	}
-	
-	public static JobDefinitionDocument createJobDocument(OpenFOAMJobSpecification jobSpec) 
+
+	public static JobDefinitionDocument createJobDocument(OpenFOAMJobSpecification jobSpec)
 	{
 		JobDefinitionDocument jobDefinitionDocument = JobDefinitionDocument.Factory.newInstance();
 		JobDefinitionType jobDefinition = jobDefinitionDocument.addNewJobDefinition();
 		JobDescriptionType jobDesc = jobDefinition.addNewJobDescription();
-		
-		ApplicationDocument ad=ApplicationDocument.Factory.newInstance();
-		ApplicationType app=ad.addNewApplication();
-		app.setApplicationName(APPLICATON_NAME);
-		app.setApplicationVersion(APPLICATION_VERSION);
-		
-		ResourcesType resReq = jobDesc.addNewResources();
-		resReq.addNewIndividualPhysicalMemory().addNewExact().setStringValue("1000000000");
-		resReq.addNewIndividualCPUCount().addNewExact().setStringValue("1");
-		double walltime = 1 * 3600.0;
-		resReq.addNewIndividualCPUTime().addNewExact().setStringValue(String.valueOf(Math.round(walltime)));
-		
-		jobDesc.setApplication(app);
-		
+
+        ApplicationDocument applicationDocument = ApplicationDocument.Factory.newInstance();
+        ApplicationType applicationType = applicationDocument.addNewApplication();
+        applicationType.setApplicationName(APPLICATON_NAME);
+        applicationType.setApplicationVersion(APPLICATION_VERSION);
+
+        ResourcesType resReq = jobDesc.addNewResources();
+        resReq.addNewIndividualPhysicalMemory().addNewExact().setStringValue("16000000");
+        resReq.addNewIndividualCPUCount().addNewExact().setStringValue("1");
+        resReq.addNewIndividualCPUTime().addNewExact().setStringValue("3600");
+
+//		ResourcesType resReq = jobDesc.addNewResources();
+//		resReq.addNewIndividualPhysicalMemory().addNewExact().setStringValue("1000000000");
+//		resReq.addNewIndividualCPUCount().addNewExact().setStringValue("1");
+//		double walltime = 1 * 3600.0;
+//		resReq.addNewIndividualCPUTime().addNewExact().setStringValue(String.valueOf(Math.round(walltime)));
+
+		jobDesc.setApplication(applicationType);
+
 		JobIdentificationType jobId = jobDesc.addNewJobIdentification();
 		jobId.setJobName(jobSpec.getName());
 		if (jobSpec.getProject() != null)
 			jobId.setJobProjectArray(new String[] {jobSpec.getProject()});
 		jobId.addJobAnnotation("INPUT_ID=" + jobSpec.getInputId());
-		
+
 		log.debug("Job description:\n" + jobDefinitionDocument.xmlText(new XmlOptions().setSavePrettyPrint()));
 		return jobDefinitionDocument;
 	}
