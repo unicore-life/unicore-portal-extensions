@@ -4,7 +4,7 @@ import eu.unicore.portal.grid.ui.helpers.BrokeredJobSubmissionHelper;
 import eu.unicore.portal.grid.ui.helpers.FileTransfersSpec;
 import org.apache.log4j.Logger;
 import org.ggf.schemas.jsdl.x2005.x11.jsdl.JobDefinitionDocument;
-import pl.edu.icm.unicore.portal.openfoam.ui.test.DateJobSpecification;
+//import pl.edu.icm.unicore.portal.openfoam.ui.test.DateJobSpecification;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +24,6 @@ public class JobHandler {
     public String submitJob(OpenFOAMJobSpecification jobSpec, OpenFOAMGridEnvironment gridEnvironment)
             throws Exception {
         JobDefinitionDocument job = OpenFOAMJSDLCreator.createJobDocument(jobSpec);
-//        JobDefinitionDocument job = DateJobSpecification.createJobDocument("test-date-job");
 
         FileTransfersSpec exports = null;
         FileTransfersSpec gridImports = null;
@@ -44,24 +43,24 @@ public class JobHandler {
     }
 
 
-    public void submitDateJob(OpenFOAMGridEnvironment gridEnvironment) {
-        JobDefinitionDocument jobDocument = DateJobSpecification.createJobDocument("testing-job");
-
-        FileTransfersSpec fileTransfersSpec = new FileTransfersSpec("/tmp/local-file.md", "test.txt");
-        try {
-            String workAssignmentID = submissionService.submitBrokeredJob(
-                    fileTransfersSpec,
-                    null,
-                    null,
-                    gridEnvironment.getStorageFactoryService(),
-                    null,
-                    jobDocument,
-                    gridEnvironment.getBrokerService()
-            );
-
-            log.info("Submitted work assignment: " + workAssignmentID);
-        } catch (Exception e) {
-            log.error("Error during work assignment submission!", e);
-        }
-    }
+//    public void submitDateJob(OpenFOAMGridEnvironment gridEnvironment) {
+//        JobDefinitionDocument jobDocument = DateJobSpecification.createJobDocument("testing-job");
+//
+//        FileTransfersSpec fileTransfersSpec = new FileTransfersSpec("/tmp/local-file.md", "test.txt");
+//        try {
+//            String workAssignmentID = submissionService.submitBrokeredJob(
+//                    fileTransfersSpec,
+//                    null,
+//                    null,
+//                    gridEnvironment.getStorageFactoryService(),
+//                    null,
+//                    jobDocument,
+//                    gridEnvironment.getBrokerService()
+//            );
+//
+//            log.info("Submitted work assignment: " + workAssignmentID);
+//        } catch (Exception e) {
+//            log.error("Error during work assignment submission!", e);
+//        }
+//    }
 }

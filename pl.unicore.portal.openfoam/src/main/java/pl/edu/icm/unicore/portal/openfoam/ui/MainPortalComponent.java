@@ -32,7 +32,6 @@ import eu.unicore.portal.ui.menu.SingleContextAction;
 import org.apache.log4j.Logger;
 import pl.edu.icm.unicore.portal.openfoam.*;
 import pl.edu.icm.unicore.portal.openfoam.ui.job.OpenFOAMJobPanel;
-import pl.edu.icm.unicore.portal.openfoam.ui.test.DateJobSubmitter;
 
 import java.util.Collection;
 
