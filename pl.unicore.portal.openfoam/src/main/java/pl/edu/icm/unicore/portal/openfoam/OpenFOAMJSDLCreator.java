@@ -3,6 +3,7 @@ package pl.edu.icm.unicore.portal.openfoam;
 import de.fzj.unicore.wsrflite.xmlbeans.WSUtilities;
 import eu.unicore.jsdl.extensions.ResourceRequestDocument;
 import eu.unicore.portal.grid.ui.helpers.BrokeredJobSubmissionHelper;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlOptions;
 import org.ggf.schemas.jsdl.x2005.x11.jsdl.ApplicationDocument;
@@ -17,8 +18,6 @@ import org.ggf.schemas.jsdl.x2005.x11.jsdl.ResourcesType;
 import org.unigrids.x2006.x04.services.jms.JobPropertiesDocument.JobProperties;
 import org.unigrids.x2006.x04.services.jms.SubmissionTimeDocument;
 import org.unigrids.x2006.x04.services.jms.TargetSystemReferenceDocument;
-
-import java.util.List;
 
 public class OpenFOAMJSDLCreator {
     private static final Logger log = Logger.getLogger(OpenFOAMJSDLCreator.class);
@@ -82,9 +81,15 @@ public class OpenFOAMJSDLCreator {
         ResourcesDocument resourcesDocument = ResourcesDocument.Factory.newInstance();
         ResourcesType resourcesType = resourcesDocument.addNewResources();
 
-        resourcesType.addNewIndividualPhysicalMemory().addNewExact().setStringValue("16000000");
-        resourcesType.addNewIndividualCPUCount().addNewExact().setStringValue("1");
-        resourcesType.addNewIndividualCPUTime().addNewExact().setStringValue("3600");
+        resourcesType.addNewIndividualPhysicalMemory()
+            .addNewExact()
+            .setStringValue(String.valueOf(32_000_000));
+        resourcesType.addNewIndividualCPUCount()
+            .addNewExact()
+            .setStringValue("1");
+        resourcesType.addNewIndividualCPUTime()
+            .addNewExact()
+            .setStringValue("3600");
 
         insertResourceRequest("Queue", "hydra", resourcesDocument);
 
